@@ -1,11 +1,12 @@
-import { Link } from 'expo-router';
-import {Text, View} from 'react-native';
+import {useAuth} from "@clerk/clerk-expo";
+import {Redirect} from "expo-router";
 
-export default function Home() {
-    return (
-        <View className="bg-red-400 h-full flex items-center justify-center ">
-            <Link href="/sign-in">Sign In</Link>
-        </View>
-    );
-}
+const Page = () => {
+    const {isSignedIn} = useAuth();
 
+    if (isSignedIn) return <Redirect href="/(tabs)/screen1"/>;
+
+    return <Redirect href="/(auth)/welcome"/>;
+};
+
+export default Page;
