@@ -1,37 +1,37 @@
-import { useSignIn } from "@clerk/clerk-expo";
+import { fetchAPI } from "@/lib/fetch";
 import { router } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert, TextInput, View, Text, TouchableOpacity } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 const SignIn = () => {
-  const { signIn, setActive, isLoaded } = useSignIn();
-
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-  const onSignInPress = useCallback(async () => {
-    if (!isLoaded) return;
-
+  const onSignInPress = async () => {
     try {
-      const signInAttempt = await signIn.create({
-        identifier: form.email,
-        password: form.password,
+      const response = await fetchAPI("/(api)/user/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
       });
-
-      if (signInAttempt.status === "complete") {
-        await setActive({ session: signInAttempt.createdSessionId });
-        router.replace("/(tabs)/screen1");
-      } else {
-        console.log(JSON.stringify(signInAttempt, null, 2));
-        Alert.alert("Error", "Log in failed. Please try again.");
+      if (response.error) {
+        throw new Error(response.error);
       }
-    } catch (err: any) {
-      console.log(JSON.stringify(err, null, 2));
-      Alert.alert("Error", err.errors[0].longMessage);
+      // Store token in SecureStore
+      await SecureStore.setItemAsync("userToken", response.token);
+      
+      Alert.alert("Login successfully");
+      router.push("/");
+    } catch (error: any) {
+      console.error("Error signing up:", error);
+      Alert.alert("Error signing up:", error?.message);
     }
-  }, [isLoaded, form]);
+  };
 
   return (
     <View className="flex h-full items-center justify-center gap-5 p-5">
