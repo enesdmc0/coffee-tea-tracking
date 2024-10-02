@@ -4,7 +4,7 @@ export const hashPassword = async (password: string) => {
 }
 
 export const generateToken = async (userId: string, email: string) => {
-    return `***${userId}***${email}***${process.env.SECRET_KEY}***`;
+    return `***${userId}***${email}***${process.env.JWT_SECRET}***`;
 }
 
 

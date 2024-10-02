@@ -52,7 +52,7 @@ export async function POST(request: Request) {
         // Create JWT token
         const token = await generateToken(existingUser.id, existingUser.email)
 
-        // // Store token in SecureStore
+        // Store token in SecureStore
         // await SecureStore.setItemAsync('userToken', token);
 
 
