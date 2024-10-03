@@ -7,3 +7,7 @@ module.exports = {
   plugins: [],
 }
 
+//tab-bg- #232525
+//app-bg #1a1c1c
+//box-color #323333
+//tab-icon-deactive #868787
