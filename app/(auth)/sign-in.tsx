@@ -1,9 +1,10 @@
 import { fetchAPI } from "@/lib/fetch";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useCallback, useState } from "react";
 import { Alert, TextInput, View, Text, TouchableOpacity } from "react-native";
 import * as SecureStore from "expo-secure-store";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 const SignIn = () => {
   const [form, setForm] = useState({
     email: "",
@@ -24,7 +25,7 @@ const SignIn = () => {
       }
       // Store token in SecureStore
       await SecureStore.setItemAsync("userToken", response.token);
-      
+
       Alert.alert("Login successfully");
       router.push("/");
     } catch (error: any) {
@@ -34,32 +35,54 @@ const SignIn = () => {
   };
 
   return (
-    <View className="flex h-full items-center justify-center gap-5 p-5">
-      <Text className="text-2xl font-bold underline">Sign In</Text>
-      <TextInput
-        placeholder="enesdmcc@gmail.com"
-        className="border w-full p-3 rounded-md"
-        textContentType="emailAddress"
-        value={form.email}
-        onChangeText={(value) => setForm({ ...form, email: value })}
-      />
+    <SafeAreaView className="bg-black">
+      <View className=" h-full  p-5 flex gap-y-8 pt-20">
+        <Text className="text-3xl text-white font-bold "> Giriş Yap </Text>
 
-      <TextInput
-        placeholder="ankarabulut"
-        className="border w-full p-3 rounded-md"
-        secureTextEntry={true}
-        textContentType="password"
-        value={form.password}
-        onChangeText={(value) => setForm({ ...form, password: value })}
-      />
+        <View className="flex gap-y-3">
+          <Text className="text-white text-lg">Email</Text>
+          <TextInput
+            placeholder="test@example.org"
+            placeholderTextColor="#868787"
+            className="border border-[#868787] w-full p-3 text-white rounded-md placeholder:text-white"
+            textContentType="emailAddress"
+            value={form.email}
+            onChangeText={(value) => setForm({ ...form, email: value })}
+            autoCapitalize="none"
+          />
+        </View>
 
-      <TouchableOpacity
-        className="border rounded-md p-3 w-full bg-black/50"
-        onPress={onSignInPress}
-      >
-        <Text className="font-semibold text-lg text-center">Sign In</Text>
-      </TouchableOpacity>
-    </View>
+        <View className="flex gap-y-3">
+          <Text className="text-white text-lg">Şifre</Text>
+          <TextInput
+            placeholder="*****"
+            placeholderTextColor="#868787"
+            className="border border-[#868787] w-full p-3 text-white rounded-md"
+            secureTextEntry={true}
+            textContentType="password"
+            value={form.password}
+            onChangeText={(value) => setForm({ ...form, password: value })}
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View>
+          <TouchableOpacity
+            className="border rounded-md p-2 w-full bg-white text-black"
+            onPress={onSignInPress}
+          >
+            <Text className="font-semibold text-lg text-center">Giriş Yap</Text>
+          </TouchableOpacity>
+          <Text className="text-[#868787] text-center mt-5">
+            Hesabınız yok mu?{" "}
+            <Link className="text-white" href="/sign-up">
+              Kayıt Ol
+            </Link>
+          </Text>
+        </View>
+      </View>
+      <StatusBar style="light" />
+    </SafeAreaView>
   );
 };
 

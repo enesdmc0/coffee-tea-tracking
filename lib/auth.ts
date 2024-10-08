@@ -1,3 +1,4 @@
+import * as SecureStore from "expo-secure-store";
 
 export const hashPassword = async (password: string) => {
     return `-***-|${password}|-***-`;
@@ -19,3 +20,8 @@ export const verifyPassword = async (hashed: string, pass: string) => {
 }
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+export const logout = async () => {
+    await SecureStore.deleteItemAsync("userToken");
+}

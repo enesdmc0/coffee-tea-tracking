@@ -5,6 +5,7 @@ import React from "react";
 
 const Layout = () => {
   const token = useAtomValue(tokenAtom);
+
   if (token) {
     return <Redirect href="/(tabs)/screen1" />;
   }

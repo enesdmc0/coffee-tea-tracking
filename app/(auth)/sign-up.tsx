@@ -8,8 +8,9 @@ import {
   View,
 } from "react-native";
 import { fetchAPI } from "@/lib/fetch";
-import { router } from "expo-router";
-
+import { Link, router } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 const SignUp = () => {
   const [form, setForm] = useState({
     name: "",
@@ -42,42 +43,75 @@ const SignUp = () => {
   };
 
   return (
-    <View className="flex items-center justify-center h-full">
-      <View className="flex gap-5 p-5 w-full ">
-        <TextInput
-          className="border w-full p-3 rounded-md"
-          placeholder="name"
-          value={form.name}
-          onChangeText={(value) => setForm({ ...form, name: value })}
-        />
-        <TextInput
-          className="border w-full p-3 rounded-md"
-          placeholder="surname"
-          value={form.surname}
-          onChangeText={(value) => setForm({ ...form, surname: value })}
-        />
-        <TextInput
-          className="border w-full p-3 rounded-md"
-          placeholder="email"
-          value={form.email}
-          onChangeText={(value) => setForm({ ...form, email: value })}
-        />
-        <TextInput
-          className="border w-full p-3 rounded-md"
-          placeholder="password"
-          secureTextEntry={true}
-          value={form.password}
-          onChangeText={(value) => setForm({ ...form, password: value })}
-        />
+    <SafeAreaView className="bg-black">
+      <View className=" h-full  p-5 flex gap-y-5 pt-20">
+        <Text className="text-3xl text-white font-bold ">Kayıt Ol</Text>
 
-        <TouchableOpacity
-          onPress={onSignUpPress}
-          className="border rounded-md p-3 w-full bg-black/50"
-        >
-          <Text className="font-semibold text-lg text-center">Sign up</Text>
-        </TouchableOpacity>
+        <View className="flex gap-y-3">
+        <Text className="text-white text-lg">Ad</Text>
+          <TextInput
+            className="border border-[#868787] w-full p-3 text-white rounded-md placeholder:text-white"
+            placeholder="enes"
+             placeholderTextColor="#868787"
+            value={form.name}
+            onChangeText={(value) => setForm({ ...form, name: value })}
+          />
+        </View>
+
+        <View className="flex gap-y-3">
+        <Text className="text-white text-lg">Soyad</Text>
+          <TextInput
+            className="border border-[#868787] w-full p-3 text-white rounded-md placeholder:text-white"
+            placeholder="demirci"
+             placeholderTextColor="#868787"
+            value={form.surname}
+            onChangeText={(value) => setForm({ ...form, surname: value })}
+          />
+        </View>
+        <View className="flex gap-y-3">
+        <Text className="text-white text-lg">Email</Text>
+          <TextInput
+            className="border border-[#868787] w-full p-3 text-white rounded-md placeholder:text-white"
+            placeholder="test@example.org"
+             placeholderTextColor="#868787"
+            value={form.email}
+            onChangeText={(value) => setForm({ ...form, email: value })}
+            autoCapitalize="none"
+          />
+        </View>
+        <View className="flex gap-y-3">
+        <Text className="text-white text-lg">Şifre</Text>
+          <TextInput
+             className="border border-[#868787] w-full p-3 text-white rounded-md placeholder:text-white"
+            placeholder="*****"
+             placeholderTextColor="#868787"
+            secureTextEntry={true}
+            value={form.password}
+            onChangeText={(value) => setForm({ ...form, password: value })}
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View>
+          <TouchableOpacity
+            className="border rounded-md p-2 w-full bg-white text-black"
+            onPress={onSignUpPress}
+          >
+            <Text className="font-semibold text-lg text-center">Kayıt Ol</Text>
+          </TouchableOpacity>
+          <Text className="text-[#868787] text-center mt-5">
+            Hesabınız var mı?{" "}
+            <Link className="text-white" href="/sign-in">
+              Giriş Yap
+            </Link>
+          </Text>
+        </View>
+
+
+       
       </View>
-    </View>
+      <StatusBar style="light" />
+    </SafeAreaView>
   );
 };
 export default SignUp;
