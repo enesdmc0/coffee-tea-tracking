@@ -5,7 +5,10 @@ import { Alert, TextInput, View, Text, TouchableOpacity } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
+import { useAtom } from "jotai";
+import { tokenAtom } from "@/atom";
 const SignIn = () => {
+  const [isToken, setIsToken] = useAtom(tokenAtom);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -25,9 +28,9 @@ const SignIn = () => {
       }
       // Store token in SecureStore
       await SecureStore.setItemAsync("userToken", response.token);
-
+      setIsToken(response.token);
       Alert.alert("Login successfully");
-      router.push("/");
+      router.replace("/");
     } catch (error: any) {
       console.error("Error signing up:", error);
       Alert.alert("Error signing up:", error?.message);
@@ -35,7 +38,7 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView className="bg-black">
+    <SafeAreaView className="bg-black flex-1">
       <View className=" h-full  p-5 flex gap-y-8 pt-20">
         <Text className="text-3xl text-white font-bold "> Giriş Yap </Text>
 

@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { Image, View, Pressable, ImageSourcePropType } from "react-native";
 import { images } from "@/constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ParamListBase, RouteProp } from "@react-navigation/native";
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "@/atom";
 
 interface TabIconProps {
   source: ImageSourcePropType;
@@ -85,6 +87,13 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
 };
 
 const Layout: React.FC = () => {
+  const token = useAtomValue(tokenAtom);
+  // console.log("---Tabs Layout---", token);
+
+  if (!token) {
+    return <Redirect href="/sign-in" />;
+  }
+
   return (
     <Tabs
       initialRouteName="index"

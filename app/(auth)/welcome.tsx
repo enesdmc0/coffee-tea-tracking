@@ -8,6 +8,7 @@ const Welcome = () => {
       <Text className="text-xl font-bold underline">Welcome Page</Text>
         <Link className="border p-5 rounded text-center  bg-black text-white w-40" href="/sign-up">Sign Up</Link>
         <Link className="border p-5 rounded text-center  bg-black text-white w-40" href="/sign-in">Sign in</Link>
+        <Link className="border p-5 rounded text-center  bg-black text-white w-40" href="/screen1">Tabs1</Link>
     </View>
   );
 };

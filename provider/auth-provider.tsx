@@ -1,17 +1,25 @@
 import React, { FC, useEffect } from "react";
 import { useAtom } from "jotai";
-import { fetchTokenAtom } from "@/atom";
+import * as SecureStore from "expo-secure-store";
+import { tokenAtom } from "@/atom";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const AuthProvider: FC<Props> = ({ children }) => {
-  const [, fetchToken] = useAtom(fetchTokenAtom);
+  const [isToken, setIsToken] = useAtom(tokenAtom);
 
   useEffect(() => {
+    const fetchToken = async () => {
+      console.log("----render oldu------------")
+      const token = await SecureStore.getItemAsync("userToken");
+      setIsToken(token);
+    };
+
     fetchToken();
-  }, [fetchToken]);
+
+  }, []);
 
   return <>{children}</>;
 };

@@ -1,15 +1,15 @@
 import { tokenAtom } from "@/atom";
 import { logout } from "@/lib/auth";
 import { Link, useRouter } from "expo-router";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { Button, Text, View } from "react-native";
 
 export default function Screen1() {
   const router = useRouter();
-  const token = useAtomValue(tokenAtom);
+  const [token, setToken] = useAtom(tokenAtom);
   const handleLogout = async () => {
     await logout();
-    console.log("token", token);
+    setToken(null);
     router.replace("/sign-in");
   };
   return (
