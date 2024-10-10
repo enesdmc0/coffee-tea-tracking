@@ -4,7 +4,7 @@ import { useAtomValue } from "jotai";
 
 const Page = () => {
   const token = useAtomValue(tokenAtom);
-  console.log("----Home Page-----", token);
+
 
   if (token) {
     return <Redirect href="/screen1" />;

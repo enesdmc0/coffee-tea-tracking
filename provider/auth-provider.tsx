@@ -12,7 +12,6 @@ const AuthProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      console.log("----render oldu------------")
       const token = await SecureStore.getItemAsync("userToken");
       setIsToken(token);
     };

@@ -1,12 +1,12 @@
 import { fetchAPI } from "@/lib/fetch";
 import { Link, router } from "expo-router";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Alert, TextInput, View, Text, TouchableOpacity } from "react-native";
-import * as SecureStore from "expo-secure-store";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { useAtom } from "jotai";
 import { tokenAtom } from "@/atom";
+import { saveToken } from "@/lib/auth";
 const SignIn = () => {
   const [isToken, setIsToken] = useAtom(tokenAtom);
   const [form, setForm] = useState({
@@ -27,7 +27,7 @@ const SignIn = () => {
         throw new Error(response.error);
       }
       // Store token in SecureStore
-      await SecureStore.setItemAsync("userToken", response.token);
+      await saveToken(response.token);
       setIsToken(response.token);
       Alert.alert("Login successfully");
       router.replace("/");
@@ -39,7 +39,7 @@ const SignIn = () => {
 
   return (
     <SafeAreaView className="bg-black flex-1">
-      <View className=" h-full  p-5 flex gap-y-8 pt-20">
+      <View className=" h-full  p-5 flex gap-y-5 pt-20">
         <Text className="text-3xl text-white font-bold "> Giriş Yap </Text>
 
         <View className="flex gap-y-3">

@@ -88,7 +88,7 @@ const CustomTabBar: React.FC<CustomTabBarProps> = ({
 
 const Layout: React.FC = () => {
   const token = useAtomValue(tokenAtom);
-  // console.log("---Tabs Layout---", token);
+
 
   if (!token) {
     return <Redirect href="/sign-in" />;

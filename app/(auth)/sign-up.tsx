@@ -44,7 +44,7 @@ const SignUp = () => {
 
   return (
     <SafeAreaView className="bg-black flex-1">
-      <View className=" h-full  p-5 flex gap-y-5 pt-20">
+      <View className=" h-full  p-5 flex gap-y-4 pt-20">
         <Text className="text-3xl text-white font-bold ">Kayıt Ol</Text>
 
         <View className="flex gap-y-3">
