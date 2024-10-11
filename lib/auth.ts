@@ -36,7 +36,7 @@ export const verifyPassword = async (hashed: string, pass: string) => {
     return step1[1] === pass;
 }
 
-export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 
 export const logout = async (): Promise<void> => {
     try {
@@ -47,7 +47,6 @@ export const logout = async (): Promise<void> => {
     }
 };
 
-// Yardımcı fonksiyon: Token'ı güvenli bir şekilde kaydetmek için
 export const saveToken = async (token: string): Promise<void> => {
     try {
         await SecureStore.setItemAsync("userToken", token);
@@ -57,12 +56,3 @@ export const saveToken = async (token: string): Promise<void> => {
     }
 };
 
-// Yardımcı fonksiyon: Kaydedilmiş token'ı almak için
-export const getToken = async (): Promise<string | null> => {
-    try {
-        return await SecureStore.getItemAsync("userToken");
-    } catch (error) {
-        console.error("Error getting token:", error);
-        return null;
-    }
-};

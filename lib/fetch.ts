@@ -14,7 +14,7 @@ export const fetchAPI = async (url: string, options?: RequestInit) => {
 };
 
 export const useFetch = <T>(url: string | null, options?: RequestInit) => {
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | null>(null); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
