@@ -4,9 +4,8 @@ import { supabase } from "@/lib/supabase";
 
 export async function POST(request: Request) {
     try {
-
         const { name, surname, email, password } = await request.json();
-
+        
         if (!name || !surname || !email || !password) {
             return Response.json(
                 { error: "Missing required fields" },

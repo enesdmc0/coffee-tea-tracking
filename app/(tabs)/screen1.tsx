@@ -47,6 +47,14 @@ export default function Screen1() {
     );
   }
 
+  const updateBeverage = async (beverageId: number) => {
+    await fetchAPI(`/(api)/beverage/increase-beverage?userId=${userId}&beverageId=${beverageId}`, {
+      method: "POST",
+    });
+    teaRefetch();
+    coffeeRefetch();
+  }
+
   return (
     <View className="h-full bg-[#1a1c1c] flex items-center justify-center">
       <View className="flex flex-row gap-5 p-5">
@@ -63,16 +71,16 @@ export default function Screen1() {
       </View>
       <View className="flex flex-row gap-x-5 border w-full p-5">
         <Pressable
-          onPress={() => console.log("coffee")}
+          onPress={() => updateBeverage(2)}
           className="flex-1 rounded-md bg-white p-5 aspect-square flex items-center justify-center"
         >
           <Text>Coffee {coffee?.count} </Text>
         </Pressable>
         <Pressable
-          onPress={() => console.log("tea")}
+          onPress={() => updateBeverage(1)}
           className="flex-1 rounded-md bg-white p-5 aspect-square flex items-center justify-center"
         >
-          <Text>Tea {tea?.count} </Text>
+          {<Text>Tea {tea?.count} </Text>}
         </Pressable>
       </View>
       <Text>Screen 1</Text>
